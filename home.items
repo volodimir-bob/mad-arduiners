@@ -1,0 +1,70 @@
+Group           Home                     "Home"              <house>                                        ["Building"]
+
+Group           GF                       "Первый этаж"       <groundfloor>     (Home)                       ["GroundFloor"]
+
+Group           Bathroom                 "Ванная комната"    <bath>            (Home)                       ["Bathroom"]
+Group           Balcony                  "Балкон"                              (Home)                       ["Outdoor"]
+Group           Bedroom                  "Спальня"           <bedroom>         (Home)                       ["Bedroom"]
+Group           Wardrobe                 "Гардероб"          <wardrobe>        (Home)
+Group           Corridor                 "Коридор"           <corridor>        (Home)                       ["Corridor"]
+Group           FamilyRoom               "Гостиная"          <parents_2_4>     (Home)                       ["Room"]
+Group           Kitchen                  "Кухня"             <kitchen>         (Home)                       ["Kitchen"]
+Group           LivingRoom               "Гостиная"          <sofa>            (Home)                       ["LivingRoom"]
+
+Switch          Bathroom_Light           "Освещение"         <light>           (Bathroom, gLight)           ["Lighting", "Switchable"]         {channel=""}
+Switch          Bathroom_Motion          "Датчик движения"   <motion>          (Bathroom, gMotion)          ["MotionDetector", "Switchable"]   {channel=""}
+Switch          Bathroom_Power           "Розетка"           <poweroutlet>     (Bathroom, gPower)           ["Switch", "Switchable"]           {channel=""}
+Switch          Bathroom_Fan             "Вентилятор"        <fan_ceiling>     (Bathroom, gFan)             ["Switchable"]                     {channel=""}
+Number          Bathroom_Heating         "Обогрев"           <heating>         (Bathroom, gHeating)         ["HVAC"]                           {channel=""}
+Number          Bathroom_Temperature     "Температура"       <temperature>     (Bathroom, gTemperature)     ["Temperature"]                    {channel=""}
+Number          Bathroom_Humidity        "Влажность"         <humidity>        (Bathroom, gHumidity)        ["Humidity"]                       {channel=""}
+Switch          Balcony_Light            "Освещение"         <light>           (Balcony, gLight)            ["Lighting", "Switchable"]         {channel=""}
+Contact         Balcony_Window           "Окно"              <window>          (Balcony, gWindow)           ["Window"]                         {channel=""}
+Switch          Balcony_Power            "Розетка"           <poweroutlet>     (Balcony, gPower)            ["Switch", "Switchable"]           {channel=""}
+Dimmer          Balcony_Blind            "Жалюзи"            <blinds>          (Balcony, gBlind)            ["Blinds", "Switchable"]           {channel=""}
+Number          Balcony_Heating          "Обогрев"           <heating>         (Balcony, gHeating)          ["HVAC"]                           {channel=""}
+Number          Balcony_Temperature      "Температура"       <temperature>     (Balcony, gTemperature)      ["Temperature"]                    {channel=""}
+Switch          Bedroom_Light            "Освещение"         <light>           (Bedroom, gLight)            ["Lighting", "Switchable"]         {channel=""}
+Contact         Bedroom_Door             "Дверь"             <door>            (Bedroom, gDoor)             ["Door"]                           {channel=""}
+Switch          Bedroom_Power            "Розетка"           <poweroutlet>     (Bedroom, gPower)            ["Switch", "Switchable"]           {channel=""}
+Switch          Bedroom_AirCon           "Кондиционер"       <snow>            (Bedroom, gAirCon)           ["HVAC", "Switchable"]             {channel=""}
+Number          Bedroom_Heating          "Обогрев"           <heating>         (Bedroom, gHeating)          ["HVAC"]                           {channel=""}
+Number          Bedroom_Temperature      "Температура"       <temperature>     (Bedroom, gTemperature)      ["Temperature"]                    {channel=""}
+Number          Bedroom_Humidity         "Влажность"         <humidity>        (Bedroom, gHumidity)         ["Humidity"]                       {channel=""}
+Switch          Wardrobe_Light           "Освещение"         <light>           (Wardrobe, gLight)           ["Lighting", "Switchable"]         {channel=""}
+Switch          Corridor_Light           "Освещение"         <light>           (Corridor, gLight)           ["Lighting", "Switchable"]         {channel=""}
+Switch          Corridor_Motion          "Датчик движения"   <motion>          (Corridor, gMotion)          ["MotionDetector", "Switchable"]   {channel=""}
+Switch          Corridor_Power           "Розетка"           <poweroutlet>     (Corridor, gPower)           ["Switch", "Switchable"]           {channel=""}
+Number          Corridor_Temperature     "Температура"       <temperature>     (Corridor, gTemperature)     ["Temperature"]                    {channel=""}
+Switch          FamilyRoom_Light         "Освещение"         <light>           (FamilyRoom, gLight)         ["Lighting", "Switchable"]         {channel=""}
+Switch          FamilyRoom_Power         "Розетка"           <poweroutlet>     (FamilyRoom, gPower)         ["Switch", "Switchable"]           {channel=""}
+Switch          FamilyRoom_Motion        "Датчик движения"   <motion>          (FamilyRoom, gMotion)        ["MotionDetector", "Switchable"]   {channel=""}
+Contact         FamilyRoom_Door          "Дверь"             <door>            (FamilyRoom, gDoor)          ["Door"]                           {channel=""}
+Number          FamilyRoom_Heating       "Обогрев"           <heating>         (FamilyRoom, gHeating)       ["HVAC"]                           {channel=""}
+Number          FamilyRoom_Temperature   "Температура"       <temperature>     (FamilyRoom, gTemperature)   ["Temperature"]                    {channel=""}
+Number          FamilyRoom_Humidity      "Влажность"         <humidity>        (FamilyRoom, gHumidity)      ["Humidity"]                       {channel=""}
+Switch          Kitchen_Light            "Освещение"         <light>           (Kitchen, gLight)            ["Lighting", "Switchable"]         {channel=""}
+Switch          Kitchen_Motion           "Датчик движения"   <motion>          (Kitchen, gMotion)           ["MotionDetector", "Switchable"]   {channel=""}
+Switch          Kitchen_Power            "Розетка"           <poweroutlet>     (Kitchen, gPower)            ["Switch", "Switchable"]           {channel=""}
+Rollershutter   Kitchen_Shutter          "Шторы"             <rollershutter>   (Kitchen, gShutter)          ["Rollershutter"]                  {channel=""}
+Switch          Kitchen_Fan              "Вентилятор"        <fan_ceiling>     (Kitchen, gFan)              ["Switchable"]                     {channel=""}
+Switch          Kitchen_AirCon           "Кондиционер"       <snow>            (Kitchen, gAirCon)           ["HVAC", "Switchable"]             {channel=""}
+Number          Kitchen_Heating          "Обогрев"           <heating>         (Kitchen, gHeating)          ["HVAC"]                           {channel=""}
+Number          Kitchen_Temperature      "Температура"       <temperature>     (Kitchen, gTemperature)      ["Temperature"]                    {channel=""}
+Number          Kitchen_Humidity         "Влажность"         <humidity>        (Kitchen, gHumidity)         ["Humidity"]                       {channel=""}
+Switch          LivingRoom_Light         "Освещение"         <light>           (LivingRoom, gLight)         ["Lighting", "Switchable"]         {channel=""}
+Switch          LivingRoom_Power         "Розетка"           <poweroutlet>     (LivingRoom, gPower)         ["Switch", "Switchable"]           {channel=""}
+Number          LivingRoom_Temperature   "Температура"       <temperature>     (LivingRoom, gTemperature)   ["Temperature"]                    {channel=""}
+
+Group:Switch:OR(ON, OFF)           gLight         "Освещение"         <light>           (Home)   ["Lighting", "Switchable"]
+Group:Switch:OR(ON, OFF)           gMotion        "Датчик движения"   <motion>          (Home)   ["MotionDetector", "Switchable"]
+Group:Switch:OR(ON, OFF)           gPower         "Розетка"           <poweroutlet>     (Home)   ["Switch", "Switchable"]
+Group:Switch:OR(ON, OFF)           gFan           "Вентилятор"        <fan_ceiling>     (Home)   ["Switchable"]
+Group:Number:AVG                   gHeating       "Обогрев"           <heating>         (Home)   ["HVAC"]
+Group:Number:AVG                   gTemperature   "Температура"       <temperature>     (Home)   ["Temperature"]
+Group:Number:AVG                   gHumidity      "Влажность"         <humidity>        (Home)   ["Humidity"]
+Group:Contact:OR(OPEN, CLOSED)     gWindow        "Окно"              <window>          (Home)   ["Window"]
+Group:Dimmer                       gBlind         "Жалюзи"            <blinds>          (Home)   ["Blinds", "Switchable"]
+Group:Contact:OR(OPEN, CLOSED)     gDoor          "Дверь"             <door>            (Home)   ["Door"]
+Group:Switch:OR(ON, OFF)           gAirCon        "Кондиционер"       <snow>            (Home)   ["HVAC", "Switchable"]
+Group:Rollershutter:OR(UP, DOWN)   gShutter       "Шторы"             <rollershutter>   (Home)   ["Rollershutter"]
