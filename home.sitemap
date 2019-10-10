@@ -1,0 +1,94 @@
+sitemap home label="Home" {
+    Frame {
+        Group item=Bathroom
+        Group item=Balcony
+        Group item=Bedroom
+        Group item=Wardrobe
+        Group item=Corridor
+        Group item=FamilyRoom
+        Group item=Kitchen
+        Group item=LivingRoom
+    }
+
+    Frame {
+        Text label="Освещение" icon="light" {
+            Default item=Bathroom_Light label="Ванная комната"
+            Default item=Balcony_Light label="Балкон"
+            Default item=Bedroom_Light label="Спальня"
+            Default item=Wardrobe_Light label="Гардероб"
+            Default item=Corridor_Light label="Коридор"
+            Default item=FamilyRoom_Light label="Гостиная"
+            Default item=Kitchen_Light label="Кухня"
+            Default item=LivingRoom_Light label="Гостиная"
+        }
+
+        Text label="Датчик движения" icon="motion" {
+            Default item=Bathroom_Motion label="Ванная комната"
+            Default item=Corridor_Motion label="Коридор"
+            Default item=FamilyRoom_Motion label="Гостиная"
+            Default item=Kitchen_Motion label="Кухня"
+        }
+
+        Text label="Розетка" icon="poweroutlet" {
+            Default item=Bathroom_Power label="Ванная комната"
+            Default item=Balcony_Power label="Балкон"
+            Default item=Bedroom_Power label="Спальня"
+            Default item=Corridor_Power label="Коридор"
+            Default item=FamilyRoom_Power label="Гостиная"
+            Default item=Kitchen_Power label="Кухня"
+            Default item=LivingRoom_Power label="Гостиная"
+        }
+
+        Text label="Вентилятор" icon="fan_ceiling" {
+            Default item=Bathroom_Fan label="Ванная комната"
+            Default item=Kitchen_Fan label="Кухня"
+        }
+
+        Text label="Обогрев" icon="heating" {
+            Default item=Bathroom_Heating label="Ванная комната"
+            Default item=Balcony_Heating label="Балкон"
+            Default item=Bedroom_Heating label="Спальня"
+            Default item=FamilyRoom_Heating label="Гостиная"
+            Default item=Kitchen_Heating label="Кухня"
+        }
+
+        Text label="Температура" icon="temperature" {
+            Default item=Bathroom_Temperature label="Ванная комната"
+            Default item=Balcony_Temperature label="Балкон"
+            Default item=Bedroom_Temperature label="Спальня"
+            Default item=Corridor_Temperature label="Коридор"
+            Default item=FamilyRoom_Temperature label="Гостиная"
+            Default item=Kitchen_Temperature label="Кухня"
+            Default item=LivingRoom_Temperature label="Гостиная"
+        }
+
+        Text label="Влажность" icon="humidity" {
+            Default item=Bathroom_Humidity label="Ванная комната"
+            Default item=Bedroom_Humidity label="Спальня"
+            Default item=FamilyRoom_Humidity label="Гостиная"
+            Default item=Kitchen_Humidity label="Кухня"
+        }
+
+        Text label="Окно" icon="window" {
+            Default item=Balcony_Window label="Балкон"
+        }
+
+        Text label="Жалюзи" icon="blinds" {
+            Default item=Balcony_Blind label="Балкон"
+        }
+
+        Text label="Дверь" icon="door" {
+            Default item=Bedroom_Door label="Спальня"
+            Default item=FamilyRoom_Door label="Гостиная"
+        }
+
+        Text label="Кондиционер" icon="snow" {
+            Default item=Bedroom_AirCon label="Спальня"
+            Default item=Kitchen_AirCon label="Кухня"
+        }
+
+        Text label="Шторы" icon="rollershutter" {
+            Default item=Kitchen_Shutter label="Кухня"
+        }
+    }
+}
