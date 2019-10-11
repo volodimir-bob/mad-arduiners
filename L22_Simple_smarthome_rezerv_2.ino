@@ -11,6 +11,26 @@
 #include <RFID.h> 
 #include <DHT.h>
 
+//
+//server
+#include <YunClient.h>
+#include <PubSubClient.h>
+#include <Bridge.h>
+#define MQTT_SERVER "192.168.137.117"
+
+#define MQTT_CLIENTID "paho53523262479"
+#define ledPin 13
+#define DHTPIN          5
+#define relayPin 3
+#define DHTTYPE         DHT11
+#define PUBLISH_DELAY   30000
+void callback(char* topic, byte* payload, unsigned int length);
+YunClient yun;
+PubSubClient mqtt(MQTT_SERVER, 1883, callback, yun);
+long previousMillis;
+char msgBuffer[20];
+void callback(char* topic, byte* payload, unsigned int length);
+// /server
 bool auth = false;
 
 bool pisk = true;
@@ -462,6 +482,8 @@ void DHTSENSOR ()
   Serial.print(F("%  Temperature: "));
   Serial.print(t);
   Serial.print(F("°C "));
+  mqtt.publish("Home/Kitchen/Kitchen_Temperature", dtostrf(t, 6, 2, msgBuffer));
+  mqtt.publish("Home/Kitchen/Kitchen_Humidity", dtostrf(h, 6, 2, msgBuffer));
   // You can send any value at any time.
   // Please don't send more that 10 values per second.
 
@@ -513,7 +535,8 @@ void PIRSENSOR () {
     // we have just turned on
     pirStatus=true;
     Serial.println("Motion detected!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-    
+    mqtt.publish("Home/Kitchen/Kitchen_Motion", "1");
+   // mqtt.publish("Home/Bathroom/Bathroom_Motion", true);
     setColor2(255, 255, 255);  // set rgb1 
    
     // We only want to print on the output change, not state
@@ -526,6 +549,8 @@ void PIRSENSOR () {
     // we have just turned of
     pirStatus=false;
     Serial.println("Motion ended!");
+    mqtt.publish("Home/Kitchen/Kitchen_Motion", "0");
+//    mqtt.publish("Home/Bathroom/Bathroom_Motion", true);
     // We only want to print on the output change, not state
     pirState = LOW;
     }
@@ -539,6 +564,7 @@ void FLAMESENSOR () {
     Flame = analogRead(FlamePin);
     Serial.print("flame_val = ");
     Serial.println(Flame);   //The serial will print the fire value
+    mqtt.publish("Home/Bedroom/Bedroom_Flame", itoa(Flame,msgBuffer,10));
   if(Flame>=1050)       // the point at which the state of LEDs change 
   {
     setColor2(255, 0, 0); // turn the RGB LED red 
@@ -551,6 +577,7 @@ void FLAMESENSOR () {
     delay(500); 
     digitalWrite(Buzzer, LOW);
     delay(10000);
+    
 //    led3.on();
 
   }
@@ -559,6 +586,7 @@ void FLAMESENSOR () {
     Serial.println("No Fire!");
     digitalWrite(Buzzer, HIGH);
 //    led3.off();
+
   } 
     delay(2000);
 }
@@ -566,6 +594,7 @@ void FLAMESENSOR () {
 void SMOKESENSOR () {
     Serial.println("SMOKE SENSOR START!");
     smoke = analogRead(smoke_mq2);
+    mqtt.publish("Home/Bedroom/Bedroom_Smoke", itoa(smoke,msgBuffer,10));
     Serial.print("smoke_val = ");
     Serial.println(smoke);   //The serial will print the smoke value
   if(smoke>=540)       // the point at which the state of LEDs change 
@@ -580,6 +609,7 @@ void SMOKESENSOR () {
     setColor2(0, 0, 0);
     digitalWrite(Buzzer, LOW);
     delay(20000);
+    //mqtt.publish("Home/Bedroom/Bedroom_Smoke", "true");
 //    led1.on();
   }
   else
@@ -587,6 +617,7 @@ void SMOKESENSOR () {
     if (pisk == true)
     {
     Serial.println("No smoke!");
+    //mqtt.publish("Home/Bedroom/Bedroom_Smoke", "false");
     digitalWrite(Buzzer, HIGH);
     }
 //    led1.off();
@@ -599,7 +630,7 @@ void setup()
 {
   Serial.begin(9600);
  // Blynk.begin(auth); 
-  //Bridge.begin();
+  Bridge.begin();
   //Console.begin();
   SPI.begin();
   dht.begin();  
@@ -623,13 +654,20 @@ void setup()
   pinMode(redPin1, OUTPUT);
   pinMode(greenPin1, OUTPUT);
   pinMode(bluePin1, OUTPUT);  
-
+//Bridge.begin();
+  if (mqtt.connect(MQTT_CLIENTID)) {
+    mqtt.setCallback(callback);
+    Serial.println(F("DHT sensor initialized"));
+    Serial.println();
+    Serial.println(F("Ready to send data"));
+    previousMillis = millis();
+  }
   timer.setInterval(100, KEYPADSENSOR);
   timer.setInterval(1000, MENU);
   timer.setInterval(1000, RFIDSENSOR);
   timer.setInterval(10000, DHTSENSOR);
-  timer.setInterval(30000, FLAMESENSOR);
-  timer.setInterval(30000, SMOKESENSOR);
+  timer.setInterval(10000, FLAMESENSOR);
+  timer.setInterval(10000, SMOKESENSOR);
   timer.setInterval(10000, LIGHTSENSOR);
   timer.setInterval(3000, PIRSENSOR);
   while (!Serial);{}
@@ -643,4 +681,27 @@ void loop()
   timer.run();
  // Blynk.run();
   digitalWrite(Buzzer, HIGH);
+}
+
+void callback(char* topic, byte* payload, unsigned int length) {
+  Serial.print("Message arrived [");
+  Serial.print(topic);
+  Serial.print("] ");//MQTT_BROKER
+  
+  for (int i = 0; i < length; i++) {
+    Serial.print((char)payload[i]);
+  }
+  Serial.println();
+  Serial.println(payload[0]);
+
+ 
+  if (strncmp((const char*)payload, "ON", 2) == 0) {
+    digitalWrite(ledPin, HIGH);    //
+    digitalWrite(relayPin, HIGH);
+  }
+  if (strncmp((const char*)payload, "OFF", 3) == 0) {
+    digitalWrite(relayPin, LOW);     //
+    digitalWrite(ledPin, LOW);
+  }
+  
 }
