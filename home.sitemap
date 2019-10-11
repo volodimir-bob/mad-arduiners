@@ -1,4 +1,8 @@
 sitemap home label="Home" {
+    Frame label="Arduino+W5100" {
+        Text item=temp
+        Text item=mqtt_kitchen_gas icon="gas"
+    }
     Frame {
         Group item=Bathroom
         Group item=Balcony

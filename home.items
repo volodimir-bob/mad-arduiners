@@ -3,13 +3,13 @@ Group           Home                     "Home"              <house>            
 Group           GF                       "Первый этаж"       <groundfloor>     (Home)                       ["GroundFloor"]
 
 Group           Bathroom                 "Ванная комната"    <bath>            (Home)                       ["Bathroom"]
-Group           Balcony                  "Балкон"                              (Home)                       ["Outdoor"]
+Group           Balcony                  "."                              (Home)                       ["Outdoor"]
 Group           Bedroom                  "Спальня"           <bedroom>         (Home)                       ["Bedroom"]
-Group           Wardrobe                 "Гардероб"          <wardrobe>        (Home)
-Group           Corridor                 "Коридор"           <corridor>        (Home)                       ["Corridor"]
+Group           Wardrobe                 "."          <wardrobe>        (Home)
+Group           Corridor                 "."           <corridor>        (Home)                       ["Corridor"]
 Group           FamilyRoom               "Гостиная"          <parents_2_4>     (Home)                       ["Room"]
 Group           Kitchen                  "Кухня"             <kitchen>         (Home)                       ["Kitchen"]
-Group           LivingRoom               "Гостиная"          <sofa>            (Home)                       ["LivingRoom"]
+Group           LivingRoom               "."          <sofa>            (Home)                       ["LivingRoom"]
 
 Switch          Bathroom_Light           "Освещение"         <light>           (Bathroom, gLight)           ["Lighting", "Switchable"]         {channel=""}
 Switch          Bathroom_Motion          "Датчик движения"   <motion>          (Bathroom, gMotion)          ["MotionDetector", "Switchable"]   {channel=""}
@@ -26,6 +26,8 @@ Number          Balcony_Heating          "Обогрев"           <heating>   
 Number          Balcony_Temperature      "Температура"       <temperature>     (Balcony, gTemperature)      ["Temperature"]                    {channel=""}
 Switch          Bedroom_Light            "Освещение"         <light>           (Bedroom, gLight)            ["Lighting", "Switchable"]         {channel=""}
 Contact         Bedroom_Door             "Дверь"             <door>            (Bedroom, gDoor)             ["Door"]                           {channel=""}
+Switch          Bedroom_Smoke             "Квартира в диму %.0f"             <smoke>            (Bedroom, gDoor)             ["Smoke"]                           {mqtt="<[mosquitto:Home/Bedroom/Bedroom_Smoke:state:REGEX((.*?))]"}
+Switch          Bedroom_Flame             "Квартира в вогні %.0f"             <flame>            (Bedroom, gDoor)             ["Flame"]                           {mqtt="<[mosquitto:Home/Bedroom/Bedroom_Flame:state:REGEX((.*?))]"}
 Switch          Bedroom_Power            "Розетка"           <poweroutlet>     (Bedroom, gPower)            ["Switch", "Switchable"]           {channel=""}
 Switch          Bedroom_AirCon           "Кондиционер"       <snow>            (Bedroom, gAirCon)           ["HVAC", "Switchable"]             {channel=""}
 Number          Bedroom_Heating          "Обогрев"           <heating>         (Bedroom, gHeating)          ["HVAC"]                           {channel=""}
@@ -44,14 +46,14 @@ Number          FamilyRoom_Heating       "Обогрев"           <heating>   
 Number          FamilyRoom_Temperature   "Температура"       <temperature>     (FamilyRoom, gTemperature)   ["Temperature"]                    {channel=""}
 Number          FamilyRoom_Humidity      "Влажность"         <humidity>        (FamilyRoom, gHumidity)      ["Humidity"]                       {channel=""}
 Switch          Kitchen_Light            "Освещение"         <light>           (Kitchen, gLight)            ["Lighting", "Switchable"]         {channel=""}
-Switch          Kitchen_Motion           "Датчик движения"   <motion>          (Kitchen, gMotion)           ["MotionDetector", "Switchable"]   {channel=""}
+Switch          Kitchen_Motion           "Датчик движения [MAP(motion.map):%s]"   <motion>          (Kitchen, gMotion)              {mqtt="<[mosquitto:Home/Kitchen/Kitchen_Motion:state:default]"}
 Switch          Kitchen_Power            "Розетка"           <poweroutlet>     (Kitchen, gPower)            ["Switch", "Switchable"]           {channel=""}
 Rollershutter   Kitchen_Shutter          "Шторы"             <rollershutter>   (Kitchen, gShutter)          ["Rollershutter"]                  {channel=""}
 Switch          Kitchen_Fan              "Вентилятор"        <fan_ceiling>     (Kitchen, gFan)              ["Switchable"]                     {channel=""}
 Switch          Kitchen_AirCon           "Кондиционер"       <snow>            (Kitchen, gAirCon)           ["HVAC", "Switchable"]             {channel=""}
 Number          Kitchen_Heating          "Обогрев"           <heating>         (Kitchen, gHeating)          ["HVAC"]                           {channel=""}
-Number          Kitchen_Temperature      "Температура"       <temperature>     (Kitchen, gTemperature)      ["Temperature"]                    {channel=""}
-Number          Kitchen_Humidity         "Влажность"         <humidity>        (Kitchen, gHumidity)         ["Humidity"]                       {channel=""}
+Number          Kitchen_Temperature      "Температура [%.1f] C"       <temperature>     (Kitchen, gTemperature)      ["Temperature"]                    {mqtt="<[mosquitto:Home/Kitchen/Kitchen_Temperature:state:REGEX((.*?))]" }
+Number          Kitchen_Humidity         "Влажность [%.1f %%]"         <humidity>        (Kitchen, gHumidity)         ["Humidity"]                       { mqtt="<[mosquitto:Home/Kitchen/Kitchen_Humidity:state:REGEX((.*?))]" }
 Switch          LivingRoom_Light         "Освещение"         <light>           (LivingRoom, gLight)         ["Lighting", "Switchable"]         {channel=""}
 Switch          LivingRoom_Power         "Розетка"           <poweroutlet>     (LivingRoom, gPower)         ["Switch", "Switchable"]           {channel=""}
 Number          LivingRoom_Temperature   "Температура"       <temperature>     (LivingRoom, gTemperature)   ["Temperature"]                    {channel=""}
@@ -68,3 +70,9 @@ Group:Dimmer                       gBlind         "Жалюзи"            <bli
 Group:Contact:OR(OPEN, CLOSED)     gDoor          "Дверь"             <door>            (Home)   ["Door"]
 Group:Switch:OR(ON, OFF)           gAirCon        "Кондиционер"       <snow>            (Home)   ["HVAC", "Switchable"]
 Group:Rollershutter:OR(UP, DOWN)   gShutter       "Шторы"             <rollershutter>   (Home)   ["Rollershutter"]
+
+
+Number    temp    "t° [%.1f °C]"    <temperature>    { mqtt="<[mosquitto:home/br/nb/temp/t:state:REGEX((.*?))]" }
+
+
+Number mqtt_kitchen_gas "Gas Level [%.1f]" {mqtt="<[mosquitto:Home/Floor1/Kitchen/Gas_Sensor:state:default]"}
